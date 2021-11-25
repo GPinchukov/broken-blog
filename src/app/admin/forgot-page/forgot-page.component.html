@@ -1,0 +1,43 @@
+<div class="container">
+<div class="log_wrap">
+<form class="card center" [formGroup]="form" (ngSubmit)="submit()">
+    <h2>Введите свой E-mail, чтобы восстановить пароль</h2>
+
+    <div class="alert alert-danger" *ngIf="errorState">
+        Не верный E-mail
+    </div>
+
+    <div
+            class="form-control"
+            [ngClass]="{invalid: form.get('email').touched && form.get('email').invalid}"
+    >
+        <label for="email">Email:</label>
+        <input id="email" type="email" formControlName="email"  (click)="errorState = false">
+            <div
+              *ngIf="form.get('email').touched && form.get('email').invalid"
+              class="validation"
+            >
+              <small *ngIf="form.get('email').errors.email">
+                Не верный email
+              </small>
+            </div>
+    </div>
+
+    <div class="btns">
+        <button mat-button
+                (click)="errorState = true"
+                type="submit"
+                class="btn btn-primary"
+        >Сбросить пароль</button>
+
+        <a routerLink="/admin/login">
+            <button mat-button
+                    class="btn-forgot"
+            >
+                Назад
+            </button>
+        </a>
+    </div>
+</form>
+</div>
+</div>
