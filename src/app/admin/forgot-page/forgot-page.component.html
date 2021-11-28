@@ -1,40 +1,42 @@
-<div class="container">
+<div class="container"
+     style="max-width: 600px">
 <div class="log_wrap">
 <form class="card center" [formGroup]="form" (ngSubmit)="submit()">
-    <h2>Введите свой E-mail, чтобы восстановить пароль</h2>
+    <h2 style="color: #111111">Enter your E-mail to recover your password</h2>
 
     <div class="alert alert-danger" *ngIf="errorState">
-        Не верный E-mail
+        Invalid E-mail
     </div>
 
     <div
             class="form-control"
             [ngClass]="{invalid: form.get('email').touched && form.get('email').invalid}"
     >
-        <label for="email">Email:</label>
+        <label for="email" style="color: #111111">Email:</label>
         <input id="email" type="email" formControlName="email"  (click)="errorState = false">
             <div
               *ngIf="form.get('email').touched && form.get('email').invalid"
               class="validation"
             >
               <small *ngIf="form.get('email').errors.email">
-                Не верный email
+                  Invalid email
               </small>
             </div>
     </div>
 
-    <div class="btns">
+    <div class="btns2">
         <button mat-button
                 (click)="errorState = true"
+                style="background-color: #62C362"
                 type="submit"
                 class="btn btn-primary"
-        >Сбросить пароль</button>
+        >Reset Password</button>
 
         <a routerLink="/admin/login">
-            <button mat-button
+            <button mat-button style="background-color: #0132BC"
                     class="btn-forgot"
             >
-                Назад
+                Back
             </button>
         </a>
     </div>

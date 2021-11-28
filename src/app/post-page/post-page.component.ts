@@ -12,7 +12,8 @@ import {switchMap} from 'rxjs/operators';
 })
 export class PostPageComponent implements OnInit {
 
-  post$: Observable<Post>
+  post: any;
+  id: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,10 +22,11 @@ export class PostPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.post$ = this.route.params
-      .pipe(switchMap((params: Params) => {
-        return this.postsService.getById(params['id'])
-      }))
+     this.route.params.subscribe((params: Params) => {
+        this.id = params.id;
+      });
+     this.post = this.postsService.getById(this.id);
+     console.log(this.id, 'этот пост');
   }
 
 }

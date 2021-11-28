@@ -28,7 +28,7 @@ export class CreatePageComponent implements OnInit {
       title: new FormControl(null, Validators.required),
       text: new FormControl(null, Validators.required),
       author: new FormControl(null, Validators.required)
-    })
+    });
   }
 
   logout(event: Event) {
@@ -39,20 +39,21 @@ export class CreatePageComponent implements OnInit {
 
   submit() {
     if (this.form.invalid) {
-      return
+      return;
     }
 
     const post: Post = {
       title: this.form.value.title,
       author: this.form.value.author,
       text: this.form.value.text,
-      date: new Date()
-    }
+      date: new Date(),
+      id: Date.now().toString()
+    };
 
-    this.postsService.create(post).subscribe(() => {
-      this.form.reset()
-      this.alert.success('Пост был создан')
-    })
+    this.postsService.create(post);
+    this.form.reset();
+    this.alert.success('Пост был создан');
+
   }
 
 }

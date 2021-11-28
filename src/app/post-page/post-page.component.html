@@ -1,9 +1,9 @@
-<div *ngIf="post$ | async as post; else loading">
+<div *ngIf="post as post; else loading">
   <div class="post">
     <div class="header">
       <h1>{{ post.title }}</h1>
 
-      <button routerLink="/" class="btn btn-link">На главную</button>
+      <button routerLink="/" class="btn btn-link" style="color: #ffffff">Назад</button>
     </div>
 
     <div class="info">

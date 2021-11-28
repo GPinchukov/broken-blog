@@ -10,13 +10,13 @@ import {Post} from '../shared/interfaces';
 })
 export class HomePageComponent implements OnInit {
 
-  posts$: Observable<Post[]>
+  posts: any;
 
   constructor(private postsService: PostsService) {
   }
 
   ngOnInit() {
-    this.posts$ = this.postsService.getAll()
+    this.posts = this.postsService.getAll();
   }
 
 }

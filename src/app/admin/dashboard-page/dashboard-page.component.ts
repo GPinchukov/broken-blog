@@ -11,12 +11,10 @@ import {Router} from '@angular/router';
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.scss']
 })
-export class DashboardPageComponent implements OnInit, OnDestroy {
+export class DashboardPageComponent implements OnInit {
 
-  posts: Post[] = []
-  pSub: Subscription
-  dSub: Subscription
-  searchStr = ''
+  posts: any;
+  searchStr = '';
 
   constructor(
     private postsService: PostsService,
@@ -27,16 +25,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.pSub = this.postsService.getAll().subscribe(posts => {
-      this.posts = posts
-    })
-  }
-
-  remove(id: string) {
-    this.dSub = this.postsService.remove(id).subscribe(() => {
-      this.posts = this.posts.filter(post => post.id !== id)
-      this.alert.warning('Пост был удален')
-    })
+    this.posts = this.postsService.getAll();
+    console.log(this.posts);
   }
 
   logout(event: Event) {
@@ -45,14 +35,12 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.router.navigate(['/admin', 'login']);
   }
 
-  ngOnDestroy() {
-    if (this.pSub) {
-      this.pSub.unsubscribe()
-    }
-
-    if (this.dSub) {
-      this.dSub.unsubscribe()
-    }
+  remove(id: string) {
+    this.postsService.remove(id);
+    this.posts = this.posts.filter(post => post.id !== id);
+    this.alert.warning('Пост был удален');
   }
+
+
 
 }

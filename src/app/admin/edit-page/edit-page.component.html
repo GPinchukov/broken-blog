@@ -1,6 +1,6 @@
 <nav class="navbar bg-primary">
   <h1>
-    <a routerLink="/">Angular Admin</a>
+    <a routerLink="/admin/dashboard">Admin</a>
   </h1>
 
   <ul *ngIf="auth.isAuthenticated()">
@@ -24,7 +24,7 @@
       [ngClass]="{invalid: form.get('title').touched && form.get('title').invalid}"
     >
       <label for="title">Название поста:</label>
-      <input id="title" type="text" formControlName="title">
+      <input id="title" type="text" style="color: white" formControlName="title">
       <div
         *ngIf="form.get('title').touched && form.get('title').invalid"
         class="validation"

@@ -1,6 +1,6 @@
 <mat-card class="card">
   <div class="card-header">
-    <h2>{{ post.title }}</h2>
+    <h2>{{ post.title  }}  </h2>
 
     <small>{{ post.date | date:'dd.MM.yyyy' }}</small>
   </div>
@@ -12,5 +12,6 @@
   <button
     [routerLink]="['/post', post.id]"
     class="btn btn-dark"
+    style="background-color: #111111"
   >Открыть</button>
 </mat-card>

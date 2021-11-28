@@ -13,13 +13,14 @@ import {AuthService} from '../shared/services/auth.service';
   templateUrl: './edit-page.component.html',
   styleUrls: ['./edit-page.component.scss']
 })
-export class EditPageComponent implements OnInit, OnDestroy {
+export class EditPageComponent implements OnInit {
 
-  form: FormGroup
-  post: Post
-  submitted = false
+  form: FormGroup;
+  post: any;
+  id: any;
+  submitted = false;
 
-  uSub: Subscription
+  uSub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,23 +32,14 @@ export class EditPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route.params.pipe(
-      switchMap((params: Params) => {
-        return this.postsService.getById(params['id'])
-      })
-    ).subscribe((post: Post) => {
-      this.post = post
-      this.form = new FormGroup({
-        title: new FormControl(post.title, Validators.required),
-        text: new FormControl(post.text, Validators.required)
-      })
-    })
-  }
-
-  ngOnDestroy() {
-    if (this.uSub) {
-      this.uSub.unsubscribe()
-    }
+    this.route.params.subscribe((params: Params) => {
+      this.id = params.id;
+    });
+    this.post = this.postsService.getById(this.id);
+    this.form = new FormGroup({
+        title: new FormControl(this.post.title, Validators.required),
+        text: new FormControl(this.post.text, Validators.required)
+  });
   }
 
   logout(event: Event) {
@@ -58,18 +50,17 @@ export class EditPageComponent implements OnInit, OnDestroy {
 
   submit() {
     if (this.form.invalid) {
-      return
+      return;
     }
 
-    this.submitted = true
+    this.submitted = true;
 
-    this.uSub = this.postsService.update({
+    this.postsService.update({
       ...this.post,
       text: this.form.value.text,
       title: this.form.value.title
-    }).subscribe(() => {
-      this.submitted = false
-      this.alert.success('Пост был обновлен')
-    })
+    });
+    this.submitted = false;
+    this.alert.success('Пост был обновлен');
   }
 }
